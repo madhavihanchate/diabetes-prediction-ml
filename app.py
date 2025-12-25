@@ -2,9 +2,6 @@ import streamlit as st
 import numpy as np
 import pickle
 
-# IMPORTANT: import sklearn BEFORE loading the model
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
 
 # Load the saved model and scaler
 model = pickle.load(open('diabetes_model.pkl', 'rb'))
@@ -30,9 +27,8 @@ if st.button("Predict"):
                   insulin, bmi, dpf, age)
 
     input_array = np.asarray(input_data).reshape(1, -1)
-    std_data = scaler.transform(input_array)
-    prediction = model.predict(std_data)
-
+    scaled_input = scaler.transform(input_data)
+    prediction = model.predict(scaled_input)
     if prediction[0] == 0:
         st.success("✅ The person is NOT diabetic")
     else:
