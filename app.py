@@ -2,6 +2,10 @@ import streamlit as st
 import numpy as np
 import pickle
 
+# IMPORTANT: import sklearn BEFORE loading the model
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
+
 # Load the saved model and scaler
 model = pickle.load(open('diabetes_model.pkl', 'rb'))
 scaler = pickle.load(open('scaler.pkl', 'rb'))
